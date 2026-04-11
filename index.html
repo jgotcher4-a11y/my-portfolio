@@ -7,15 +7,52 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <title>Jason Gotcher — Portfolio</title>
   <style>
-    :root{--accent:#0366d6;--muted:#666}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;line-height:1.6;margin:0;color:#111;background:linear-gradient(135deg,#f7f7f9 0%,#eef6ff 50%,#f8fbff 100%);background-attachment:fixed}
+    /* Theme tokens (light + dark via .dark on html) */
+    :root{
+      --accent:#0b76d1;
+      --muted:#6b7280;
+      --bg-0:#f8fbff;
+      --bg-1:#eef6ff;
+      --card:#ffffff;
+      --glass:rgba(255,255,255,0.7);
+      --text:#0b1220;
+    }
+
+    .dark{
+      --bg-0:#0b1220;
+      --bg-1:#071026;
+      --card:#0f1724;
+      --glass:rgba(10,14,20,0.5);
+      --text:#e6eef8;
+      --muted:#98a3b3;
+      --accent:#5cc0ff;
+    }
+
+    /* Modern typographic scale */
+    html{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-size:clamp(16px,1.2vw,18px); color-scheme:light dark}
+    body{margin:0;line-height:1.6;color:var(--text);background:linear-gradient(135deg,var(--bg-0) 0%,var(--bg-1) 100%);background-attachment:fixed;transition:background .3s ease,color .3s ease}
+
+    /* Containers & layout */
     .container{max-width:1000px;margin:0 auto;padding:2rem}
-    header{background:rgba(255,255,255,0.92);border-bottom:1px solid #e6e6e9;backdrop-filter:blur(4px)}
+    header{position:sticky;top:0;z-index:50;background:var(--glass);border-bottom:1px solid rgba(11,17,32,0.06);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
     .header-inner{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
-    .site-title{font-weight:700;font-size:1.25rem}
-    nav a{margin-left:1rem;color:var(--accent);text-decoration:none}
-    .hero{padding:4rem 0;text-align:center;background:linear-gradient(180deg,#fff,#f3f6fb)}
-    .hero h1{margin:0;font-size:2rem}
+    .site-title{font-weight:700;font-size:1.125rem;letter-spacing:0.2px}
+    nav{display:flex;align-items:center}
+    nav a{margin-left:1rem;color:var(--accent);text-decoration:none;font-weight:600}
+
+    /* Theme toggle */
+    .theme-toggle{margin-left:1rem;background:transparent;border:1px solid rgba(0,0,0,0.06);padding:.35rem .6rem;border-radius:999px;cursor:pointer;color:var(--text)}
+
+    /* Headings — typographic rhythm */
+    h1{font-size:clamp(2rem,3.6vw,2.6rem);line-height:1.02;margin:0 0 .25rem}
+    h2{font-size:clamp(1.25rem,2.4vw,1.6rem);margin-bottom:.5rem}
+    h3{font-size:clamp(1.05rem,1.6vw,1.15rem);margin-bottom:.25rem}
+
+    .hero{padding:4rem 0;text-align:center;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.02));border-bottom:0}
+
+    /* Increase whitespace between sections */
+    .section{padding:5rem 0}
+
     /* Elegant separators between major blocks */
     header + section::before,
     section + section::before {
@@ -23,15 +60,38 @@
       display:block;
       height:1px;
       max-width:900px;
-      margin:0 auto 1.5rem;
-      background:linear-gradient(90deg,transparent,rgba(3,102,214,0.16),transparent);
+      margin:0 auto 2.5rem;
+      background:linear-gradient(90deg,transparent,rgba(11,118,209,0.12),transparent);
     }
-    .section{padding:3rem 0}
+
+    /* Grid system */
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
-    .card{background:#fff;padding:1rem;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
-    ul.skills{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.5rem}
-    ul.skills li{background:#eaf3ff;color:var(--accent);padding:.4rem .6rem;border-radius:6px;font-size:.9rem}
+
+    /* Generic cards — subtle, elevated */
+    .card{background:var(--card);padding:1.1rem;border-radius:12px;border:1px solid rgba(11,17,32,0.04);box-shadow:0 6px 18px rgba(9,30,66,0.04);transition:transform .18s ease,box-shadow .18s ease}
+    .card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(9,30,66,0.08)}
+
+    /* Experience-specific refinements */
+    .experience-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+    .experience-grid article.card{padding:1rem;border-radius:12px;border:1px solid rgba(11,118,209,0.06);box-shadow:0 8px 20px rgba(11,17,32,0.04);background:linear-gradient(180deg,var(--card),rgba(255,255,255,0.02))}
+    .experience-grid article.card h4{margin:0 0 .35rem}
+
+    /* Skills as rounded pills */
+    ul.skills{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.6rem}
+    ul.skills li{background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.4));color:var(--accent);padding:.5rem .75rem;border-radius:999px;font-size:.95rem;font-weight:600;border:1px solid rgba(11,118,209,0.08)}
+    .dark ul.skills li{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));color:var(--accent);border-color:rgba(92,192,255,0.08)}
+
+    .landing .landing-inner{display:flex;align-items:center;gap:2rem;max-width:900px;margin:0 auto}
+    .landing .profile-photo{width:160px;height:160px;border-radius:50%;object-fit:cover;box-shadow:0 8px 24px rgba(9,30,66,0.12);border:4px solid rgba(255,255,255,0.6)}
+    .dark .landing .profile-photo{border-color:rgba(255,255,255,0.06)}
+    .landing .landing-copy{text-align:left}
+    .landing .subtitle{color:var(--muted);margin-top:.25rem}
+    .landing .lead{margin-top:.5rem;color:var(--muted)}
+    .landing .cta-row{margin-top:1rem;display:flex;gap:.6rem}
+    @media (max-width:720px){.landing .landing-inner{flex-direction:column;text-align:center}.landing .landing-copy{text-align:center}}
+
     footer{padding:2rem 0;text-align:center;color:var(--muted);font-size:.9rem}
+
     @media (max-width:600px){.header-inner{flex-direction:column;align-items:flex-start}nav{margin-top:.5rem}}
   </style>
 </head>
@@ -48,95 +108,7 @@
       </nav>
     </div>
   </header>
-  <style>
-    /* Color tokens (light theme) */
-    :root{
-      --bg-0: #f8fbff;
-      --bg-1: #eef6ff;
-      --card: #ffffff;
-      --text: #0b1220;
-      --muted: #6b7280;
-      --accent: #0b76d1;
-      --glass: rgba(255,255,255,0.7);
-    }
-
-    /* Dark theme tokens */
-    .dark{
-      --bg-0: #0b1220;
-      --bg-1: #071026;
-      --card: #0f1724;
-      --text: #e6eef8;
-      --muted: #98a3b3;
-      --accent: #5cc0ff;
-      --glass: rgba(10,14,20,0.5);
-    }
-
-    /* Responsive typographic scale */
-    html{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-size:clamp(15px,1.25vw,18px); color-scheme:light dark}
-    h1{font-size:clamp(1.6rem,3.6vw,2.6rem);line-height:1.02;margin-bottom:.25rem}
-    h2{font-size:clamp(1.25rem,2.4vw,1.6rem);margin-bottom:.5rem}
-    h3{font-size:clamp(1.05rem,1.6vw,1.15rem);margin-bottom:.25rem}
-
-    body{line-height:1.6;margin:0;color:var(--text);background:linear-gradient(135deg,var(--bg-0) 0%,var(--bg-1) 100%);background-attachment:fixed;transition:background .3s ease,color .3s ease}
-    .container{max-width:1000px;margin:0 auto;padding:2rem}
-
-    /* Sticky, blurred navbar */
-    header{position:sticky;top:0;z-index:50;background:var(--glass);border-bottom:1px solid rgba(11,17,32,0.06);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-    .header-inner{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
-    .site-title{font-weight:700;font-size:1.125rem;letter-spacing:0.2px}
-    nav{display:flex;align-items:center}
-    nav a{margin-left:1rem;color:var(--accent);text-decoration:none;font-weight:600}
-
-    /* Theme toggle */
-    .theme-toggle{margin-left:1rem;background:transparent;border:1px solid rgba(0,0,0,0.06);padding:.35rem .6rem;border-radius:999px;cursor:pointer;color:var(--text)}
-
-    /* Icon styling: consistent accent color and spacing */
-    .icon{color:var(--accent);margin-right:.5rem;display:inline-flex;align-items:center}
-
-    .hero{padding:4rem 0;text-align:center;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.02));border-bottom:0}
-    .hero p{color:var(--muted);margin-top:.5rem}
-
-    /* Landing layout with profile photo */
-    .landing .landing-inner{display:flex;align-items:center;gap:2rem;max-width:900px;margin:0 auto}
-    .landing .profile-photo{width:160px;height:160px;border-radius:50%;object-fit:cover;box-shadow:0 8px 24px rgba(9,30,66,0.12);border:4px solid rgba(255,255,255,0.6)}
-    .dark .landing .profile-photo{border-color:rgba(255,255,255,0.06)}
-    .landing .landing-copy{text-align:left}
-    .landing .subtitle{color:var(--muted);margin-top:.25rem}
-    .landing .lead{margin-top:.5rem;color:var(--muted)}
-    .landing .cta-row{margin-top:1rem;display:flex;gap:.6rem}
-    @media (max-width:720px){.landing .landing-inner{flex-direction:column;text-align:center}.landing .landing-copy{text-align:center}}
-
-    .section{padding:3rem 0}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
-
-    /* Cards for content */
-    .card{background:var(--card);padding:1.1rem;border-radius:12px;box-shadow:0 6px 18px rgba(9,30,66,0.06);transition:transform .18s ease,box-shadow .18s ease}
-    .card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(9,30,66,0.09)}
-
-    /* Skills as rounded pills */
-    ul.skills{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.6rem}
-    ul.skills li{background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.4));color:var(--accent);padding:.5rem .75rem;border-radius:999px;font-size:.95rem;font-weight:600;border:1px solid rgba(11,118,209,0.08)}
-    .dark ul.skills li{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));color:var(--accent);border-color:rgba(92,192,255,0.08)}
-
-    footer{padding:2rem 0;text-align:center;color:var(--muted);font-size:.9rem}
-
-    /* Elegant separators between major blocks */
-    header + section::before,
-    section + section::before {
-      content:"";
-      display:block;
-      height:1px;
-      max-width:900px;
-      margin:0 auto 1.5rem;
-      background:linear-gradient(90deg,transparent,rgba(11,118,209,0.12),transparent);
-    }
-
-    /* Experience cards grid */
-    .experience-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
-
-    @media (max-width:600px){.header-inner{flex-direction:column;align-items:flex-start}nav{margin-top:.5rem}}
-  </style>
-      </style>
+  <main>
 
     <section id="home" class="hero landing">
       <div class="container">
