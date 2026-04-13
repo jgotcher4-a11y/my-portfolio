@@ -198,6 +198,7 @@
     .stat{text-align:center}
     .stat-number{font-size:2.25rem;font-weight:800;color:var(--accent);line-height:1}
     .stat-label{color:var(--muted);font-weight:600;margin-top:.35rem}
+    .stat-plus{font-size:1.1rem;color:var(--muted);font-weight:700;margin-left:.25rem}
     @media (max-width:720px){.stats{grid-template-columns:1fr;gap:.75rem}.stat-number{font-size:1.85rem}}
   </style>
 </head>
@@ -243,6 +244,41 @@
         <div class="marquee">
           <div class="marquee__track-wrap" aria-hidden="true">
             <div class="marquee__track">
+              <!-- Primary list duplicated inside each track for a seamless loop -->
+              <div class="marquee__item">1010 Premium Drinks</div>
+              <div class="marquee__item">ANXO Cider</div>
+              <div class="marquee__item">Owl's Brew</div>
+              <div class="marquee__item">Artifact Cider</div>
+              <div class="marquee__item">Atomic Dog Cider</div>
+              <div class="marquee__item">Backpack Brands</div>
+              <div class="marquee__item">Ballotin Craft Spirits</div>
+              <div class="marquee__item">Black Flag Brewing Co</div>
+              <div class="marquee__item">Blue Jacket</div>
+              <div class="marquee__item">Calvert Brewing</div>
+              <div class="marquee__item">Corsendonk</div>
+              <div class="marquee__item">Chacho</div>
+              <div class="marquee__item">Crooked Crab Brewing Co</div>
+              <div class="marquee__item">Merchant du Vin</div>
+              <div class="marquee__item">Monopolio</div>
+              <div class="marquee__item">Notch Brewing</div>
+              <div class="marquee__item">Oliver Brewing Co</div>
+              <div class="marquee__item">Over Ice Beverages</div>
+              <div class="marquee__item">Raven Beer</div>
+              <div class="marquee__item">The Barker Company</div>
+              <div class="marquee__item">Schenker Beer Company</div>
+              <div class="marquee__item">Social Hour Cocktails</div>
+              <div class="marquee__item">Soul Mega</div>
+              <div class="marquee__item">Superstition Meadery</div>
+              <div class="marquee__item">The Veil Brewing Co</div>
+              <div class="marquee__item">Tip Top Cocktails, Inc</div>
+              <div class="marquee__item">Triple Crossing</div>
+              <div class="marquee__item">Twelve Percent Beer Project</div>
+              <div class="marquee__item">Untitled Art</div>
+              <div class="marquee__item">Vasen Brewing Co</div>
+              <div class="marquee__item">Weldwerks Brewing Co</div>
+              <div class="marquee__item">Weyerbacher Brewing Company</div>
+
+              <!-- Duplicate the sequence to remove gaps when animating -->
               <div class="marquee__item">1010 Premium Drinks</div>
               <div class="marquee__item">ANXO Cider</div>
               <div class="marquee__item">Owl's Brew</div>
@@ -277,6 +313,41 @@
               <div class="marquee__item">Weyerbacher Brewing Company</div>
             </div>
             <div class="marquee__track">
+              <!-- Second track mirrors the first for seamless looping -->
+              <div class="marquee__item">1010 Premium Drinks</div>
+              <div class="marquee__item">ANXO Cider</div>
+              <div class="marquee__item">Owl's Brew</div>
+              <div class="marquee__item">Artifact Cider</div>
+              <div class="marquee__item">Atomic Dog Cider</div>
+              <div class="marquee__item">Backpack Brands</div>
+              <div class="marquee__item">Ballotin Craft Spirits</div>
+              <div class="marquee__item">Black Flag Brewing Co</div>
+              <div class="marquee__item">Blue Jacket</div>
+              <div class="marquee__item">Calvert Brewing</div>
+              <div class="marquee__item">Corsendonk</div>
+              <div class="marquee__item">Chacho</div>
+              <div class="marquee__item">Crooked Crab Brewing Co</div>
+              <div class="marquee__item">Merchant du Vin</div>
+              <div class="marquee__item">Monopolio</div>
+              <div class="marquee__item">Notch Brewing</div>
+              <div class="marquee__item">Oliver Brewing Co</div>
+              <div class="marquee__item">Over Ice Beverages</div>
+              <div class="marquee__item">Raven Beer</div>
+              <div class="marquee__item">The Barker Company</div>
+              <div class="marquee__item">Schenker Beer Company</div>
+              <div class="marquee__item">Social Hour Cocktails</div>
+              <div class="marquee__item">Soul Mega</div>
+              <div class="marquee__item">Superstition Meadery</div>
+              <div class="marquee__item">The Veil Brewing Co</div>
+              <div class="marquee__item">Tip Top Cocktails, Inc</div>
+              <div class="marquee__item">Triple Crossing</div>
+              <div class="marquee__item">Twelve Percent Beer Project</div>
+              <div class="marquee__item">Untitled Art</div>
+              <div class="marquee__item">Vasen Brewing Co</div>
+              <div class="marquee__item">Weldwerks Brewing Co</div>
+              <div class="marquee__item">Weyerbacher Brewing Company</div>
+
+              <!-- Duplicate sequence inside second track as well -->
               <div class="marquee__item">1010 Premium Drinks</div>
               <div class="marquee__item">ANXO Cider</div>
               <div class="marquee__item">Owl's Brew</div>
@@ -323,7 +394,10 @@
             <div class="stat-label">Years Leadership</div>
           </div>
           <div class="stat">
-            <div class="stat-number" data-target="25">0</div>
+            <div style="display:inline-flex;align-items:baseline;gap:.25rem;justify-content:center">
+              <div class="stat-number" data-target="75">0</div>
+              <div class="stat-plus" aria-hidden="true">+</div>
+            </div>
             <div class="stat-label">Portfolio Launches</div>
           </div>
           <div class="stat">
@@ -441,6 +515,17 @@
               <li><strong>Menu & Concept Consulting</strong>: Menu engineering, layout design, and seasonal curation (e.g., St. Paddy’s Day specials).</li>
               <li><strong>Business Development</strong>: Identifying untapped opportunities through outreach and relationship building.</li>
               <li><strong>Supply Chain Logic</strong>: Inventory management and "zero-inventory" digital business models.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3><i class="fa-solid fa-flask icon" aria-hidden="true"></i>Product Development</h3>
+            <ul class="skills skill-list">
+              <li>Recipe formulation</li>
+              <li>Raw ingredient sourcing</li>
+              <li>Hard goods sourcing</li>
+              <li>Taste trials</li>
+              <li>Intellectual property protection</li>
             </ul>
           </div>
 
