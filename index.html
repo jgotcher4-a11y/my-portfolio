@@ -186,15 +186,15 @@
     }
     /* Brand partners marquee (grayscale -> color on hover) */
     .brand-ticker{position:relative;width:100%;opacity:.95;padding:.6rem 0}
-    /* Parent marquee container should hide overflow and layout tracks inline */
-    .brand-ticker .marquee{width:100%;display:flex;overflow:hidden;white-space:nowrap}
-    /* Track wrapper holds two identical tracks (200% width). Animate translateX from 0 -> -50% */
-    .brand-ticker .marquee__track-wrap{display:flex;width:200%;animation:scroll 40s linear infinite;will-change:transform}
-    /* Each track occupies exactly 50% of the wrapper so translateX(-50%) lines up the duplicated set */
-    .brand-ticker .marquee__track{display:flex;flex:0 0 50%;gap:2.5rem;align-items:center;white-space:nowrap;padding:0 1rem}
-    /* Prevent items from shrinking so widths remain constant across both tracks */
-    .brand-ticker .marquee__item{flex:0 0 auto;font-weight:700;color:#8b8b8b;opacity:0.6;filter:grayscale(100%);transition:filter .2s ease,opacity .2s ease,color .2s ease}
-    .brand-ticker .marquee__item:hover{filter:none;opacity:1;color:var(--brand, var(--accent))}
+    /* Wrapper hides overflow and lays out marquee content */
+    .brand-ticker .marquee-wrapper{overflow:hidden;display:flex;width:100%}
+    /* Content holds two identical groups side-by-side and animates left by 50% */
+    .brand-ticker .marquee-content{display:flex;animation:scroll 60s linear infinite;will-change:transform}
+    /* Each group contains the full list; prevent shrinking and keep consistent gap */
+    .brand-ticker .marquee-group{display:flex;flex-shrink:0;gap:3rem;align-items:center;padding:0 1rem;white-space:nowrap}
+    /* Items should not shrink so widths remain identical across groups */
+    .brand-ticker .marquee-item{flex:0 0 auto;font-weight:700;color:#8b8b8b;opacity:0.6;filter:grayscale(100%);transition:filter .2s ease,opacity .2s ease,color .2s ease}
+    .brand-ticker .marquee-item:hover{filter:none;opacity:1;color:var(--brand, var(--accent))}
     @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
     @media (max-width:720px){.brand-ticker .marquee__item{font-size:0.95rem;padding:0 1rem}.brand-ticker{padding:.4rem 0}}
     /* Stats bar */
@@ -241,79 +241,79 @@
 
     <!-- Partners moved into the brand partners marquee label -->
 
-    <!-- Brand Partners marquee (placeholder items) -->
+    <!-- Brand Partners marquee (seamless infinite loop) -->
     <section id="brand-partners" class="brand-ticker" aria-label="Brand Partners">
       <div class="container">
         <div class="marquee-label">PORTFOLIO PARTNERS</div>
-        <div class="marquee">
-          <div class="marquee__track-wrap" aria-hidden="true">
-            <div class="marquee__track">
-              <div class="marquee__item">1010 Premium Drinks</div>
-              <div class="marquee__item">ANXO Cider</div>
-              <div class="marquee__item">Owl's Brew</div>
-              <div class="marquee__item">Artifact Cider</div>
-              <div class="marquee__item">Atomic Dog Cider</div>
-              <div class="marquee__item">Backpack Brands</div>
-              <div class="marquee__item">Ballotin Craft Spirits</div>
-              <div class="marquee__item">Black Flag Brewing Co</div>
-              <div class="marquee__item">Blue Jacket</div>
-              <div class="marquee__item">Calvert Brewing</div>
-              <div class="marquee__item">Corsendonk</div>
-              <div class="marquee__item">Chacho</div>
-              <div class="marquee__item">Crooked Crab Brewing Co</div>
-              <div class="marquee__item">Merchant du Vin</div>
-              <div class="marquee__item">Monopolio</div>
-              <div class="marquee__item">Notch Brewing</div>
-              <div class="marquee__item">Oliver Brewing Co</div>
-              <div class="marquee__item">Over Ice Beverages</div>
-              <div class="marquee__item">Raven Beer</div>
-              <div class="marquee__item">The Barker Company</div>
-              <div class="marquee__item">Schenker Beer Company</div>
-              <div class="marquee__item">Social Hour Cocktails</div>
-              <div class="marquee__item">Soul Mega</div>
-              <div class="marquee__item">Superstition Meadery</div>
-              <div class="marquee__item">The Veil Brewing Co</div>
-              <div class="marquee__item">Tip Top Cocktails, Inc</div>
-              <div class="marquee__item">Triple Crossing</div>
-              <div class="marquee__item">Twelve Percent Beer Project</div>
-              <div class="marquee__item">Untitled Art</div>
-              <div class="marquee__item">Vasen Brewing Co</div>
-              <div class="marquee__item">Weldwerks Brewing Co</div>
-              <div class="marquee__item">Weyerbacher Brewing Company</div>
+        <div class="marquee-wrapper">
+          <div class="marquee-content" aria-hidden="true">
+            <div class="marquee-group">
+              <div class="marquee-item">1010 Premium Drinks</div>
+              <div class="marquee-item">ANXO Cider</div>
+              <div class="marquee-item">Owl's Brew</div>
+              <div class="marquee-item">Artifact Cider</div>
+              <div class="marquee-item">Atomic Dog Cider</div>
+              <div class="marquee-item">Backpack Brands</div>
+              <div class="marquee-item">Ballotin Craft Spirits</div>
+              <div class="marquee-item">Black Flag Brewing Co</div>
+              <div class="marquee-item">Blue Jacket</div>
+              <div class="marquee-item">Calvert Brewing</div>
+              <div class="marquee-item">Corsendonk</div>
+              <div class="marquee-item">Chacho</div>
+              <div class="marquee-item">Crooked Crab Brewing Co</div>
+              <div class="marquee-item">Merchant du Vin</div>
+              <div class="marquee-item">Monopolio</div>
+              <div class="marquee-item">Notch Brewing</div>
+              <div class="marquee-item">Oliver Brewing Co</div>
+              <div class="marquee-item">Over Ice Beverages</div>
+              <div class="marquee-item">Raven Beer</div>
+              <div class="marquee-item">The Barker Company</div>
+              <div class="marquee-item">Schenker Beer Company</div>
+              <div class="marquee-item">Social Hour Cocktails</div>
+              <div class="marquee-item">Soul Mega</div>
+              <div class="marquee-item">Superstition Meadery</div>
+              <div class="marquee-item">The Veil Brewing Co</div>
+              <div class="marquee-item">Tip Top Cocktails, Inc</div>
+              <div class="marquee-item">Triple Crossing</div>
+              <div class="marquee-item">Twelve Percent Beer Project</div>
+              <div class="marquee-item">Untitled Art</div>
+              <div class="marquee-item">Vasen Brewing Co</div>
+              <div class="marquee-item">Weldwerks Brewing Co</div>
+              <div class="marquee-item">Weyerbacher Brewing Company</div>
             </div>
-            <div class="marquee__track">
-              <div class="marquee__item">1010 Premium Drinks</div>
-              <div class="marquee__item">ANXO Cider</div>
-              <div class="marquee__item">Owl's Brew</div>
-              <div class="marquee__item">Artifact Cider</div>
-              <div class="marquee__item">Atomic Dog Cider</div>
-              <div class="marquee__item">Backpack Brands</div>
-              <div class="marquee__item">Ballotin Craft Spirits</div>
-              <div class="marquee__item">Black Flag Brewing Co</div>
-              <div class="marquee__item">Blue Jacket</div>
-              <div class="marquee__item">Calvert Brewing</div>
-              <div class="marquee__item">Corsendonk</div>
-              <div class="marquee__item">Chacho</div>
-              <div class="marquee__item">Crooked Crab Brewing Co</div>
-              <div class="marquee__item">Merchant du Vin</div>
-              <div class="marquee__item">Monopolio</div>
-              <div class="marquee__item">Notch Brewing</div>
-              <div class="marquee__item">Oliver Brewing Co</div>
-              <div class="marquee__item">Over Ice Beverages</div>
-              <div class="marquee__item">Raven Beer</div>
-              <div class="marquee__item">The Barker Company</div>
-              <div class="marquee__item">Schenker Beer Company</div>
-              <div class="marquee__item">Social Hour Cocktails</div>
-              <div class="marquee__item">Soul Mega</div>
-              <div class="marquee__item">Superstition Meadery</div>
-              <div class="marquee__item">The Veil Brewing Co</div>
-              <div class="marquee__item">Tip Top Cocktails, Inc</div>
-              <div class="marquee__item">Triple Crossing</div>
-              <div class="marquee__item">Twelve Percent Beer Project</div>
-              <div class="marquee__item">Untitled Art</div>
-              <div class="marquee__item">Vasen Brewing Co</div>
-              <div class="marquee__item">Weldwerks Brewing Co</div>
-              <div class="marquee__item">Weyerbacher Brewing Company</div>
+            <div class="marquee-group">
+              <div class="marquee-item">1010 Premium Drinks</div>
+              <div class="marquee-item">ANXO Cider</div>
+              <div class="marquee-item">Owl's Brew</div>
+              <div class="marquee-item">Artifact Cider</div>
+              <div class="marquee-item">Atomic Dog Cider</div>
+              <div class="marquee-item">Backpack Brands</div>
+              <div class="marquee-item">Ballotin Craft Spirits</div>
+              <div class="marquee-item">Black Flag Brewing Co</div>
+              <div class="marquee-item">Blue Jacket</div>
+              <div class="marquee-item">Calvert Brewing</div>
+              <div class="marquee-item">Corsendonk</div>
+              <div class="marquee-item">Chacho</div>
+              <div class="marquee-item">Crooked Crab Brewing Co</div>
+              <div class="marquee-item">Merchant du Vin</div>
+              <div class="marquee-item">Monopolio</div>
+              <div class="marquee-item">Notch Brewing</div>
+              <div class="marquee-item">Oliver Brewing Co</div>
+              <div class="marquee-item">Over Ice Beverages</div>
+              <div class="marquee-item">Raven Beer</div>
+              <div class="marquee-item">The Barker Company</div>
+              <div class="marquee-item">Schenker Beer Company</div>
+              <div class="marquee-item">Social Hour Cocktails</div>
+              <div class="marquee-item">Soul Mega</div>
+              <div class="marquee-item">Superstition Meadery</div>
+              <div class="marquee-item">The Veil Brewing Co</div>
+              <div class="marquee-item">Tip Top Cocktails, Inc</div>
+              <div class="marquee-item">Triple Crossing</div>
+              <div class="marquee-item">Twelve Percent Beer Project</div>
+              <div class="marquee-item">Untitled Art</div>
+              <div class="marquee-item">Vasen Brewing Co</div>
+              <div class="marquee-item">Weldwerks Brewing Co</div>
+              <div class="marquee-item">Weyerbacher Brewing Company</div>
             </div>
           </div>
         </div>
