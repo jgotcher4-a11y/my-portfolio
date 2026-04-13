@@ -189,9 +189,11 @@
     /* Parent marquee container should hide overflow and layout tracks inline */
     .brand-ticker .marquee{width:100%;display:flex;overflow:hidden;white-space:nowrap}
     /* Track wrapper holds two identical tracks (200% width). Animate translateX from 0 -> -50% */
-    .brand-ticker .marquee__track-wrap{display:flex;min-width:200%;animation:scroll 40s linear infinite}
-    .brand-ticker .marquee__track{display:flex;gap:2.5rem;align-items:center;white-space:nowrap;padding:0 1rem}
-    .brand-ticker .marquee__item{font-weight:700;color:#8b8b8b;opacity:0.6;filter:grayscale(100%);transition:filter .2s ease,opacity .2s ease,color .2s ease}
+    .brand-ticker .marquee__track-wrap{display:flex;width:200%;animation:scroll 40s linear infinite;will-change:transform}
+    /* Each track occupies exactly 50% of the wrapper so translateX(-50%) lines up the duplicated set */
+    .brand-ticker .marquee__track{display:flex;flex:0 0 50%;gap:2.5rem;align-items:center;white-space:nowrap;padding:0 1rem}
+    /* Prevent items from shrinking so widths remain constant across both tracks */
+    .brand-ticker .marquee__item{flex:0 0 auto;font-weight:700;color:#8b8b8b;opacity:0.6;filter:grayscale(100%);transition:filter .2s ease,opacity .2s ease,color .2s ease}
     .brand-ticker .marquee__item:hover{filter:none;opacity:1;color:var(--brand, var(--accent))}
     @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
     @media (max-width:720px){.brand-ticker .marquee__item{font-size:0.95rem;padding:0 1rem}.brand-ticker{padding:.4rem 0}}
