@@ -34,7 +34,8 @@
 
     /* Containers & layout */
     .container{max-width:1000px;margin:0 auto;padding:2rem}
-    header{position:sticky;top:0;z-index:50;background:var(--glass);border-bottom:1px solid rgba(11,17,32,0.06);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+    /* Glassmorphism header: semi-transparent + strong blur */
+    header{position:sticky;top:0;z-index:50;background:var(--glass);border-bottom:1px solid rgba(11,17,32,0.05);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
     .header-inner{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
     .site-title{font-weight:700;font-size:1.125rem;letter-spacing:0.2px}
     nav{display:flex;align-items:center}
@@ -74,6 +75,15 @@
     .card{background:var(--card);padding:1.1rem;border-radius:12px;border:1px solid rgba(11,17,32,0.04);box-shadow:0 6px 18px rgba(9,30,66,0.04);transition:transform .18s ease,box-shadow .18s ease}
     .card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(9,30,66,0.08)}
 
+    /* Project card interactions (scale + deeper shadow) */
+    #projects .card{display:flex;flex-direction:column}
+    #projects .card:hover{transform:scale(1.02);box-shadow:0 18px 45px rgba(9,30,66,0.12)}
+    #projects .card .card-actions{margin-top:1rem}
+    #projects .btn-primary{display:inline-block;padding:.5rem .9rem;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;border:none}
+
+    /* Project icons: slightly larger with circular, subtle accent background */
+    #projects .card .icon{font-size:1.15rem;width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(11,118,209,0.08);color:var(--accent);margin-right:.75rem}
+
     /* Experience-specific refinements */
     .experience-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
     .experience-grid article.card{padding:1rem;border-radius:12px;border:1px solid rgba(11,118,209,0.06);box-shadow:0 8px 20px rgba(11,17,32,0.04);background:linear-gradient(180deg,var(--card),rgba(255,255,255,0.02))}
@@ -88,12 +98,18 @@
     .skill-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.45rem}
     .skill-list li{background:transparent;padding:.25rem 0;font-size:.95rem;border-radius:6px}
     .card .skill-list li{color:var(--text)}
+    /* Data card: two-column compact layout for quick scanning */
+    .data-card .skill-list{grid-template-columns:repeat(2,minmax(120px,1fr));gap:.5rem}
+    .data-card .skill-list strong{font-weight:700}
 
     .landing .landing-inner{display:flex;align-items:center;gap:2rem;max-width:900px;margin:0 auto}
-    .landing .profile-photo{width:160px;height:160px;border-radius:50%;object-fit:cover;box-shadow:0 8px 24px rgba(9,30,66,0.12);border:4px solid rgba(255,255,255,0.6)}
+    .landing .profile-photo{width:160px;height:160px;border-radius:50%;object-fit:cover;box-shadow:0 8px 24px rgba(9,30,66,0.12);border:4px solid rgba(255,255,255,0.6);position:relative;display:block}
+    /* Accent halo around profile photo: 3px ring with 10px offset */
+    .landing .profile-photo::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:calc(100% + 20px);height:calc(100% + 20px);border-radius:50%;border:3px solid var(--accent);pointer-events:none}
     .dark .landing .profile-photo{border-color:rgba(255,255,255,0.06)}
     .landing .landing-copy{text-align:left}
-    .landing .subtitle{color:var(--muted);margin-top:.25rem}
+    .landing .landing-copy h1{font-weight:800}
+    .landing .subtitle{color:var(--muted);margin-top:.25rem;font-size:0.95rem;opacity:0.92}
     .landing .lead{margin-top:.5rem;color:var(--muted)}
     .landing .cta-row{margin-top:1rem;display:flex;gap:.6rem}
     @media (max-width:720px){.landing .landing-inner{flex-direction:column;text-align:center}.landing .landing-copy{text-align:center}}
@@ -101,6 +117,32 @@
     footer{padding:2rem 0;text-align:center;color:var(--muted);font-size:.9rem}
 
     @media (max-width:600px){.header-inner{flex-direction:column;align-items:flex-start}nav{margin-top:.5rem}}
+
+    /* Partners / Trusted By */
+    .partners{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1rem 0}
+    .partners .partner-list{display:flex;gap:2.25rem;align-items:center;justify-content:center;color:var(--muted);font-weight:600}
+    .partners .partner-list .partner{color:var(--muted);opacity:0.95}
+    .partners .label{font-size:.92rem;color:var(--muted);margin-bottom:.25rem}
+
+    /* Footer layout + icons */
+    .footer-row{display:flex;align-items:center;justify-content:center;gap:.6rem}
+    footer .footer-links{display:inline-flex;gap:.6rem;align-items:center}
+    footer .footer-links a{color:var(--muted);text-decoration:none;font-size:1rem}
+    footer .footer-links a:hover{color:var(--accent)}
+
+    /* Scroll-reveal: sections and cards start slightly down + transparent */
+    .section:not(.is-visible),
+    .card:not(.is-visible) {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s cubic-bezier(.2,.9,.2,1), transform .6s cubic-bezier(.2,.9,.2,1);
+      will-change: opacity, transform;
+    }
+    .section.is-visible,
+    .card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -136,6 +178,16 @@
       </div>
     </section>
 
+    <section class="partners" aria-label="Trusted by">
+      <div class="container">
+        <div class="label">Trusted by</div>
+        <div class="partner-list">
+          <div class="partner">Prestige-Ledroit</div>
+          <div class="partner">Manor Hill Brewing</div>
+        </div>
+      </div>
+    </section>
+
     <section id="about" class="section">
       <div class="container">
         <h2>About Me</h2>
@@ -160,6 +212,9 @@
               <li>Data Visualization</li>
               <li>Exploratory Analysis</li>
             </ul>
+            <div class="card-actions">
+              <a class="btn-primary" href="#">View Project</a>
+            </div>
           </div>
 
           <div class="card">
@@ -171,17 +226,23 @@
               <li>Revenue Allocation</li>
               <li>Python</li>
             </ul>
+            <div class="card-actions">
+              <a class="btn-primary" href="#">View Project</a>
+            </div>
           </div>
-          <div class="card">
-            <h3><i class="fa-solid fa-magnifying-glass-chart icon" aria-hidden="true"></i>Telecom Revenue & Statistical Analysis (Megaline)</h3>
-            <p>Exploratory Data Analysis project analyzing plan revenue, performing hypothesis tests, and using histograms and boxplots to compare client behavior.</p>
-            <ul class="skills">
-              <li>EDA</li>
-              <li>Hypothesis Testing</li>
-              <li>Matplotlib / Seaborn</li>
-              <li>Statistical Analysis</li>
-            </ul>
-          </div>
+                    <div class="card">
+                      <h3><i class="fa-solid fa-magnifying-glass-chart icon" aria-hidden="true"></i>Telecom Revenue & Statistical Analysis (Megaline)</h3>
+                      <p>Exploratory Data Analysis project analyzing plan revenue, performing hypothesis tests, and using histograms and boxplots to compare client behavior.</p>
+                      <ul class="skills">
+                        <li>EDA</li>
+                        <li>Hypothesis Testing</li>
+                        <li>Matplotlib / Seaborn</li>
+                        <li>Statistical Analysis</li>
+                      </ul>
+                      <div class="card-actions">
+                        <a class="btn-primary" href="#">View Project</a>
+                      </div>
+                    </div>
         </div>
       </div>
     </section>
@@ -190,16 +251,17 @@
       <div class="container">
         <h2>Skills</h2>
         <div class="grid">
-          <div class="card">
+          <div class="card data-card">
             <h3><i class="fa-solid fa-brain icon" aria-hidden="true"></i>Data Science & ML</h3>
             <ul class="skills skill-list">
-              <li><i class="fa-brands fa-python icon" aria-hidden="true"></i>Python</li>
+              <li><i class="fa-brands fa-python icon" aria-hidden="true"></i><strong>Python</strong></li>
+              <li><strong>EDA</strong></li>
               <li>pandas</li>
               <li>NumPy</li>
               <li>scikit-learn</li>
               <li>TensorFlow</li>
               <li>PyTorch</li>
-              <li><i class="fa-solid fa-database icon" aria-hidden="true"></i>SQL</li>
+              <li><i class="fa-solid fa-database icon" aria-hidden="true"></i><strong>SQL</strong></li>
               <li><i class="fa-solid fa-chart-simple icon" aria-hidden="true"></i>Data Visualization</li>
               <li>Feature Engineering</li>
               <li>Statistical Analysis</li>
@@ -305,7 +367,13 @@
 
   <footer>
     <div class="container">
-      <p>© Jason Gotcher</p>
+      <div class="footer-row">
+        <p>© Jason Gotcher</p>
+        <div class="footer-links" role="navigation" aria-label="Contact links">
+          <a href="mailto:jgotcher4@gmail.com" aria-label="Email Jason"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://linkedin.com/in/jason-gotcher-117b64319" target="_blank" rel="noopener" aria-label="Jason's LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
     </div>
   </footer>
   <script>
@@ -323,6 +391,26 @@
       }
 
       if(btn) btn.addEventListener('click', toggle);
+    })();
+    
+    // Scroll reveal using IntersectionObserver — adds 'is-visible' when elements enter viewport
+    (function(){
+      if(!('IntersectionObserver' in window)){
+        // Fallback: make everything visible
+        document.querySelectorAll('section, .card').forEach(el=>el.classList.add('is-visible'));
+        return;
+      }
+
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {root: null, rootMargin: '0px 0px -8% 0px', threshold: 0.06});
+
+      document.querySelectorAll('section, .card').forEach(el => io.observe(el));
     })();
   </script>
 </body>
