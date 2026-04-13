@@ -11,6 +11,7 @@
     :root{
       --accent:#0b76d1;
       --muted:#6b7280;
+      --dot-color: rgba(11,17,32,0.05);
       --bg-0:#f8fbff;
       --bg-1:#eef6ff;
       --card:#ffffff;
@@ -19,6 +20,7 @@
     }
 
     .dark{
+      --dot-color: rgba(255,255,255,0.03);
       --bg-0:#0b1220;
       --bg-1:#071026;
       --card:#0f1724;
@@ -30,7 +32,7 @@
 
     /* Modern typographic scale */
     html{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-size:clamp(16px,1.2vw,18px); color-scheme:light dark;scroll-behavior:smooth}
-    body{margin:0;line-height:1.6;color:var(--text);background:linear-gradient(135deg,var(--bg-0) 0%,var(--bg-1) 100%);background-attachment:fixed;transition:background .3s ease,color .3s ease}
+    body{margin:0;line-height:1.6;color:var(--text);background-image:radial-gradient(circle, var(--dot-color) 1px, transparent 1px), linear-gradient(135deg,var(--bg-0) 0%,var(--bg-1) 100%);background-size:20px 20px, auto;background-repeat:repeat, no-repeat;background-attachment:fixed;transition:background .3s ease,color .3s ease}
 
     /* Containers & layout */
     .container{max-width:1000px;margin:0 auto;padding:2rem}
@@ -54,6 +56,25 @@
     .hero .landing-inner{background:linear-gradient(180deg,rgba(255,255,255,0.75),rgba(255,255,255,0.5));padding:1.75rem;border-radius:16px;box-shadow:0 24px 60px rgba(9,30,66,0.08);align-items:center}
     .dark .hero .landing-inner{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));box-shadow:0 18px 48px rgba(2,6,23,0.6)}
 
+    /* Animated mesh gradient behind hero */
+    .hero{position:relative;overflow:hidden}
+    .hero::before{content:"";position:absolute;inset:-20%;z-index:-1;pointer-events:none;background-image:
+      radial-gradient(600px at 10% 20%, rgba(11,118,209,0.14) 0%, transparent 30%),
+      radial-gradient(500px at 80% 70%, rgba(92,192,255,0.12) 0%, transparent 30%),
+      radial-gradient(420px at 50% 50%, rgba(120,140,160,0.06) 0%, transparent 30%);
+    filter:blur(40px);opacity:.95;transform:translate3d(0,0,0);animation:meshMove 24s linear infinite}
+    .dark .hero::before{background-image:
+      radial-gradient(600px at 10% 20%, rgba(92,192,255,0.14) 0%, transparent 30%),
+      radial-gradient(500px at 80% 70%, rgba(11,118,209,0.08) 0%, transparent 30%),
+      radial-gradient(420px at 50% 50%, rgba(20,40,60,0.06) 0%, transparent 30%);
+    filter:blur(36px);opacity:.9}
+
+    @keyframes meshMove{
+      0%{transform:translate3d(0,0,0) scale(1)}
+      50%{transform:translate3d(-6%,2%,0) scale(1.02)}
+      100%{transform:translate3d(0,0,0) scale(1)}
+    }
+
     /* Increase whitespace between sections */
     .section{padding:5rem 0}
 
@@ -72,7 +93,7 @@
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
 
     /* Generic cards — subtle, elevated */
-    .card{background:var(--card);padding:1.1rem;border-radius:12px;border:1px solid rgba(11,17,32,0.04);box-shadow:0 6px 18px rgba(9,30,66,0.04);transition:transform .18s ease,box-shadow .18s ease}
+    .card{background:var(--card);padding:1.1rem;border-radius:12px;border:1px solid rgba(11,17,32,0.04);box-shadow:0 6px 18px rgba(9,30,66,0.04);transition:transform .18s ease,box-shadow .18s ease;position:relative;overflow:hidden}
     .card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(9,30,66,0.08)}
 
     /* Project card interactions (scale + deeper shadow) */
@@ -83,6 +104,26 @@
 
     /* Project icons: slightly larger with circular, subtle accent background */
     #projects .card .icon{font-size:1.15rem;width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(11,118,209,0.08);color:var(--accent);margin-right:.75rem}
+
+    /* Per-project top border gradients and button glow colors */
+    .project-music{--project-glow: rgba(11,118,209,0.18)}
+    .project-financial{--project-glow: rgba(16,185,129,0.16)}
+    .project-megaline{--project-glow: rgba(99,102,241,0.16)}
+
+    .project-music::before,
+    .project-financial::before,
+    .project-megaline::before{
+      content:"";position:absolute;left:0;right:0;top:0;height:4px;border-top-left-radius:12px;border-top-right-radius:12px;z-index:2}
+    .project-music::before{background:linear-gradient(90deg,#0b76d1 0%,#5cc0ff 100%)}
+    .project-financial::before{background:linear-gradient(90deg,#10b981 0%,#06b6d4 100%)}
+    .project-megaline::before{background:linear-gradient(90deg,#7c3aed 0%,#2563eb 100%)}
+
+    /* Button hover glow that matches project color */
+    #projects .card .btn-primary{transition:box-shadow .18s ease,transform .12s ease}
+    #projects .card .btn-primary:hover{transform:translateY(-2px)}
+    .project-music .btn-primary:hover{box-shadow:0 10px 30px var(--project-glow)}
+    .project-financial .btn-primary:hover{box-shadow:0 10px 30px var(--project-glow)}
+    .project-megaline .btn-primary:hover{box-shadow:0 10px 30px var(--project-glow)}
 
     /* Experience-specific refinements */
     .experience-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
@@ -143,6 +184,21 @@
       opacity: 1;
       transform: translateY(0);
     }
+    /* Brand partners marquee (grayscale -> color on hover) */
+    .brand-ticker{position:relative;width:100%;overflow:hidden;opacity:.95;padding:.6rem 0}
+    .brand-ticker .marquee{width:100%;overflow:hidden}
+    .brand-ticker .marquee__track-wrap{display:flex;min-width:200%;animation:marqueeScroll 28s linear infinite}
+    .brand-ticker .marquee__track{display:flex;gap:2.5rem;align-items:center;white-space:nowrap;padding:0 1rem}
+    .brand-ticker .marquee__item{font-weight:700;color:#8b8b8b;opacity:0.6;filter:grayscale(100%);transition:filter .2s ease,opacity .2s ease,color .2s ease}
+    .brand-ticker .marquee__item:hover{filter:none;opacity:1;color:var(--brand, var(--accent))}
+    @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media (max-width:720px){.brand-ticker .marquee__item{font-size:0.95rem;padding:0 1rem}.brand-ticker{padding:.4rem 0}}
+    /* Stats bar */
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.25rem 0;padding:1rem 0}
+    .stat{text-align:center}
+    .stat-number{font-size:2.25rem;font-weight:800;color:var(--accent);line-height:1}
+    .stat-label{color:var(--muted);font-weight:600;margin-top:.35rem}
+    @media (max-width:720px){.stats{grid-template-columns:1fr;gap:.75rem}.stat-number{font-size:1.85rem}}
   </style>
 </head>
 <body>
@@ -188,6 +244,103 @@
       </div>
     </section>
 
+    <!-- Brand Partners marquee (placeholder items) -->
+    <section id="brand-partners" class="brand-ticker" aria-label="Brand Partners">
+      <div class="container">
+        <div class="marquee">
+          <div class="marquee__track-wrap" aria-hidden="true">
+            <div class="marquee__track">
+              <div class="marquee__item">1010 Premium Drinks</div>
+              <div class="marquee__item">ANXO Cider</div>
+              <div class="marquee__item">Owl's Brew</div>
+              <div class="marquee__item">Artifact Cider</div>
+              <div class="marquee__item">Atomic Dog Cider</div>
+              <div class="marquee__item">Backpack Brands</div>
+              <div class="marquee__item">Ballotin Craft Spirits</div>
+              <div class="marquee__item">Black Flag Brewing Co</div>
+              <div class="marquee__item">Blue Jacket</div>
+              <div class="marquee__item">Calvert Brewing</div>
+              <div class="marquee__item">Corsendonk</div>
+              <div class="marquee__item">Chacho</div>
+              <div class="marquee__item">Crooked Crab Brewing Co</div>
+              <div class="marquee__item">Merchant du Vin</div>
+              <div class="marquee__item">Monopolio</div>
+              <div class="marquee__item">Notch Brewing</div>
+              <div class="marquee__item">Oliver Brewing Co</div>
+              <div class="marquee__item">Over Ice Beverages</div>
+              <div class="marquee__item">Raven Beer</div>
+              <div class="marquee__item">The Barker Company</div>
+              <div class="marquee__item">Schenker Beer Company</div>
+              <div class="marquee__item">Social Hour Cocktails</div>
+              <div class="marquee__item">Soul Mega</div>
+              <div class="marquee__item">Superstition Meadery</div>
+              <div class="marquee__item">The Veil Brewing Co</div>
+              <div class="marquee__item">Tip Top Cocktails, Inc</div>
+              <div class="marquee__item">Triple Crossing</div>
+              <div class="marquee__item">Twelve Percent Beer Project</div>
+              <div class="marquee__item">Untitled Art</div>
+              <div class="marquee__item">Vasen Brewing Co</div>
+              <div class="marquee__item">Weldwerks Brewing Co</div>
+              <div class="marquee__item">Weyerbacher Brewing Company</div>
+            </div>
+            <div class="marquee__track">
+              <div class="marquee__item">1010 Premium Drinks</div>
+              <div class="marquee__item">ANXO Cider</div>
+              <div class="marquee__item">Owl's Brew</div>
+              <div class="marquee__item">Artifact Cider</div>
+              <div class="marquee__item">Atomic Dog Cider</div>
+              <div class="marquee__item">Backpack Brands</div>
+              <div class="marquee__item">Ballotin Craft Spirits</div>
+              <div class="marquee__item">Black Flag Brewing Co</div>
+              <div class="marquee__item">Blue Jacket</div>
+              <div class="marquee__item">Calvert Brewing</div>
+              <div class="marquee__item">Corsendonk</div>
+              <div class="marquee__item">Chacho</div>
+              <div class="marquee__item">Crooked Crab Brewing Co</div>
+              <div class="marquee__item">Merchant du Vin</div>
+              <div class="marquee__item">Monopolio</div>
+              <div class="marquee__item">Notch Brewing</div>
+              <div class="marquee__item">Oliver Brewing Co</div>
+              <div class="marquee__item">Over Ice Beverages</div>
+              <div class="marquee__item">Raven Beer</div>
+              <div class="marquee__item">The Barker Company</div>
+              <div class="marquee__item">Schenker Beer Company</div>
+              <div class="marquee__item">Social Hour Cocktails</div>
+              <div class="marquee__item">Soul Mega</div>
+              <div class="marquee__item">Superstition Meadery</div>
+              <div class="marquee__item">The Veil Brewing Co</div>
+              <div class="marquee__item">Tip Top Cocktails, Inc</div>
+              <div class="marquee__item">Triple Crossing</div>
+              <div class="marquee__item">Twelve Percent Beer Project</div>
+              <div class="marquee__item">Untitled Art</div>
+              <div class="marquee__item">Vasen Brewing Co</div>
+              <div class="marquee__item">Weldwerks Brewing Co</div>
+              <div class="marquee__item">Weyerbacher Brewing Company</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Key stats">
+      <div class="container">
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-number" data-target="15">0</div>
+            <div class="stat-label">Years Leadership</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" data-target="25">0</div>
+            <div class="stat-label">Portfolio Launches</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" data-target="100">0</div>
+            <div class="stat-label">% Data-Driven</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="about" class="section">
       <div class="container">
         <h2>About Me</h2>
@@ -203,7 +356,7 @@
       <div class="container">
         <h2>Projects</h2>
         <div class="grid">
-          <div class="card">
+          <div class="card project-music">
             <h3><i class="fa-solid fa-chart-line icon" aria-hidden="true"></i>Music in Big Cities Analysis</h3>
             <p>Data analysis project comparing user streaming habits between two cities using Python and pandas.</p>
             <ul class="skills">
@@ -217,7 +370,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card project-financial">
             <h3><i class="fa-solid fa-calculator icon" aria-hidden="true"></i>Business Financial Analyzer</h3>
             <p>Tool developed to automate revenue distributions and financial logic for the beverage industry.</p>
             <ul class="skills">
@@ -268,7 +421,7 @@
               <li>Model Deployment</li>
             </ul>
           </div>
-          <div class="card">
+          <div class="card project-megaline">
             <h3><i class="fa-solid fa-tools icon" aria-hidden="true"></i>Tools & Workflow</h3>
             <ul class="skill-list">
               <li>Jupyter / VS Code</li>
@@ -411,6 +564,57 @@
       }, {root: null, rootMargin: '0px 0px -8% 0px', threshold: 0.06});
 
       document.querySelectorAll('section, .card').forEach(el => io.observe(el));
+    })();
+
+    // Counter animation for stats when visible
+    (function(){
+      const formatNumber = n => n;
+      const counters = document.querySelectorAll('.stat-number');
+      if(!counters.length) return;
+
+      function animateCount(el){
+        const target = parseInt(el.dataset.target, 10) || 0;
+        const duration = 1400;
+        let start = null;
+
+        function step(timestamp){
+          if(!start) start = timestamp;
+          const progress = Math.min((timestamp - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.floor(eased * target);
+          el.textContent = formatNumber(value);
+          if(progress < 1) requestAnimationFrame(step);
+          else el.textContent = formatNumber(target) + (el.dataset.target === '100' ? '' : '');
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      if('IntersectionObserver' in window){
+        const obs = new IntersectionObserver((entries, o) => {
+          entries.forEach(entry => {
+            if(entry.isIntersecting){
+              entry.target.querySelectorAll('.stat-number').forEach(animateCount);
+              o.unobserve(entry.target);
+            }
+          });
+        }, {root: null, threshold: 0.25});
+
+        const el = document.querySelector('.stats');
+        if(el) obs.observe(el);
+      } else {
+        counters.forEach(animateCount);
+      }
+    })();
+
+    // Ticker: harmonize hover color from --brand custom property
+    (function(){
+      document.querySelectorAll('.brand-ticker .brand').forEach(el => {
+        const color = getComputedStyle(el).getPropertyValue('--brand').trim();
+        if(color) el.style.setProperty('color', '#888');
+        el.addEventListener('mouseover', () => el.style.color = color || 'inherit');
+        el.addEventListener('mouseout', () => el.style.color = '#8b8b8b');
+      });
     })();
   </script>
 </body>
