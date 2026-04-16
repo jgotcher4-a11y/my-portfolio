@@ -111,14 +111,18 @@
     .project-music{--project-glow: rgba(11,118,209,0.18)}
     .project-financial{--project-glow: rgba(16,185,129,0.16)}
     .project-megaline{--project-glow: rgba(99,102,241,0.16)}
+    .project-propai{--project-glow: rgba(255,111,0,0.18)}
 
     .project-music::before,
     .project-financial::before,
-    .project-megaline::before{
+    .project-megaline::before,
+    .project-propai::before{
       content:"";position:absolute;left:0;right:0;top:0;height:4px;border-top-left-radius:12px;border-top-right-radius:12px;z-index:2}
     .project-music::before{background:linear-gradient(90deg,#0b76d1 0%,#5cc0ff 100%)}
     .project-financial::before{background:linear-gradient(90deg,#10b981 0%,#06b6d4 100%)}
     .project-megaline::before{background:linear-gradient(90deg,#7c3aed 0%,#2563eb 100%)}
+    .project-propai::before{background:linear-gradient(90deg,#ff6f00 0%,#ffb300 100%)}
+    .project-propai .btn-primary:hover{box-shadow:0 10px 30px var(--project-glow)}
 
     /* Button hover glow that matches project color */
     #projects .card .btn-primary{transition:box-shadow .18s ease,transform .12s ease}
@@ -399,6 +403,21 @@
                         <a class="btn-primary" href="#">View Project</a>
                       </div>
                     </div>
+
+          <div class="card project-propai">
+            <h3><i class="fa-solid fa-robot icon" aria-hidden="true"></i>PropAITools.com — AI Content &amp; Automation Engine</h3>
+            <p>Engineered a fully autonomous content pipeline on a dedicated Mac Mini using Claude 3.5 Sonnet and the OpenClaw framework. The system automates the entire lifecycle of a niche authority site—from deep market research and SEO-driven drafting to custom CSS injection and direct publishing via the Ghost Admin API.</p>
+            <ul class="skills">
+              <li>AI Automation</li>
+              <li>Ghost CMS</li>
+              <li>Tailscale</li>
+              <li>Mac Mini</li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn-primary" href="https://propaitools.com" target="_blank" rel="noopener">View Site</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
