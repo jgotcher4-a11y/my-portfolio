@@ -353,10 +353,19 @@
       margin-bottom: 0.75rem;
     }
 
-    .marquee-wrapper { overflow: hidden; }
-    .marquee-content { display: flex; animation: marquee 25s linear infinite; will-change: transform; }
-    .marquee-group { display: flex; flex-shrink: 0; gap: 3rem; align-items: center; padding: 0 1.5rem; white-space: nowrap; }
-    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-wrapper { overflow: hidden; display: flex; }
+    .marquee-content {
+      display: flex;
+      flex-shrink: 0;
+      min-width: 100%;
+      gap: 3rem;
+      align-items: center;
+      padding: 0 1.5rem;
+      white-space: nowrap;
+      animation: marquee 18s linear infinite;
+      will-change: transform;
+    }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 
     .marquee-item {
       font-weight: 600;
@@ -364,6 +373,7 @@
       color: var(--text-muted);
       letter-spacing: 0.02em;
       transition: color 0.2s var(--ease);
+      flex-shrink: 0;
     }
     .marquee-item:hover { color: var(--orange-light); }
 
@@ -637,8 +647,7 @@
       <div class="container">
         <div class="marquee-label">Portfolio Partners</div>
         <div class="marquee-wrapper">
-          <div class="marquee-content" aria-hidden="true">
-            <div class="marquee-group">
+          <div class="marquee-content">
               <span class="marquee-item">1010 Premium Drinks</span>
               <span class="marquee-item">ANXO Cider</span>
               <span class="marquee-item">Owl's Brew</span>
@@ -664,8 +673,8 @@
               <span class="marquee-item">Untitled Art</span>
               <span class="marquee-item">Weldwerks Brewing Co</span>
               <span class="marquee-item">Weyerbacher Brewing</span>
-            </div>
-            <div class="marquee-group" aria-hidden="true">
+          </div>
+          <div class="marquee-content" aria-hidden="true">
               <span class="marquee-item">1010 Premium Drinks</span>
               <span class="marquee-item">ANXO Cider</span>
               <span class="marquee-item">Owl's Brew</span>
