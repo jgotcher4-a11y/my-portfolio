@@ -425,8 +425,12 @@
     /* ── Projects grid ──────────────────────────────────────── */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.25rem;
+    }
+
+    .project-card--wide {
+      grid-column: 1 / -1;
     }
 
     .project-card {
@@ -749,7 +753,7 @@
         <h2>Selected Projects</h2>
         <div class="projects-grid">
 
-          <div class="card project-card project-propai reveal">
+          <div class="card project-card project-propai project-card--wide reveal">
             <div class="card-top-bar"></div>
             <div class="project-icon"><i class="fa-solid fa-robot" aria-hidden="true"></i></div>
             <div class="card-body">
