@@ -758,13 +758,16 @@
             <div class="project-icon"><i class="fa-solid fa-robot" aria-hidden="true"></i></div>
             <div class="card-body">
               <h3>Bobby Agent OS — Self-Modifying Multi-Channel AI Operator</h3>
-              <p>A production AI agent designed and built end-to-end on a dedicated M-Series Edge Server, networked via Tailscale. Bobby operates across five surfaces — Telegram, web dashboard, Twitter, Ghost CMS, and GitHub. The architecture is an Express.js orchestration layer wrapping the Anthropic SDK, with smart per-message model routing across Claude Opus 4.7, Sonnet 4.6, and Haiku 4.5. Conversation continuity is maintained through a LanceDB &amp; MiniLM vector memory layer, with retrieval-augmented context injection and session summarization to control token spend. Bobby runs concurrent production and staging environments under PM2 supervision — byte-identical builds, kept in sync via deterministic patch scripts that backup, mutate, syntax-validate, and atomically write before any restart. All AI calls flow through a unified spend tracker with per-model pricing, hour/day/month rollups, and configurable budget caps that hard-stop runaway costs.</p>
+              <p>A production AI agent designed and built end-to-end on a dedicated M-Series Edge Server, networked via Tailscale. Bobby operates across five surfaces — Telegram, web dashboard, Twitter, Ghost CMS, and GitHub. The architecture is an Express.js orchestration layer wrapping the Anthropic SDK, with smart per-message model routing across Claude Opus 4.7, Sonnet 4.6, and Haiku 4.5. Memory is a four-store system — LanceDB vector search, a verbatim layer capturing both sides of every exchange, a validity store with temporal Phase 3A tracking (valid_from / valid_until / superseded_by), and a scope store auto-tagging each memory across six context dimensions via keyword inference and channel signals. A self-reconciling integrity check runs before every scheduled backup, catching orphan records, count mismatches, and enum violations automatically. Scanner subreddits, model selection, and lead-quality thresholds are externalized to editable config files with graceful fallback — no code changes required. Bobby runs concurrent production and staging environments under PM2 supervision, with daily backup automation, millisecond-precision timestamps, and retention pruning.</p>
             </div>
             <div class="tags">
               <span class="tag">Multi-Channel Agent</span>
               <span class="tag">Self-Modifying Code</span>
               <span class="tag">LanceDB RAG</span>
               <span class="tag">PM2 + Tailscale</span>
+              <span class="tag">Temporal Memory</span>
+              <span class="tag">Scope-Tagged Retrieval</span>
+              <span class="tag">Self-Reconciling Stores</span>
             </div>
           </div>
 
